@@ -2,31 +2,31 @@
 clear;
 clc;
 
-I_target = imread('D:\ÎÄ¼ş\Êı×ÖÍ¼Ïñ´¦Àí\Í¼ÏñÊ¶±ğÈı¼¶ÏîÄ¿\target2.png');          %¶ÁÈëÍ¼Æ¬
-I_template = imread('D:\ÎÄ¼ş\Êı×ÖÍ¼Ïñ´¦Àí\Í¼ÏñÊ¶±ğÈı¼¶ÏîÄ¿\template2.png');
+I_target = imread('target2.png');          %è¯»å…¥å›¾ç‰‡
+I_template = imread('template2.png');
 
 figure
 subplot(121)
 imshow(I_target);
-title('Êµ²ÉÍ¼Æ¬')
+title('å®é‡‡å›¾ç‰‡')
 subplot(122)
 imshow(I_template);
-title('ÑùÆ¬')
+title('æ ·ç‰‡')
 
-v_target = rgb2gray(I_target);           % Í¼Ïñ×ª»»      
+v_target = rgb2gray(I_target);           % å›¾åƒè½¬æ¢      
 v_template = rgb2gray(I_template);
 
 
-j_target = medfilt2(v_target,[3,3]);      %3¡Á3ÖĞÖµÂË²¨Æ÷È¥Ôë
+j_target = medfilt2(v_target,[3,3]);      %3Ã—3ä¸­å€¼æ»¤æ³¢å™¨å»å™ª
 j_template = medfilt2(v_template,[3,3]); 
 
 % figure
 % subplot(121)
 % imshow(j_target);
-% title('ÖĞÖµÂË²¨È¥ÔëºóµÄÊµ²ÉÍ¼Æ¬')
+% title('ä¸­å€¼æ»¤æ³¢å»å™ªåçš„å®é‡‡å›¾ç‰‡')
 % subplot(122)
 % imshow(j_template);
-% title('ÖĞÖµÂË²¨È¥ÔëºóµÄÑùÆ¬')
+% title('ä¸­å€¼æ»¤æ³¢å»å™ªåçš„æ ·ç‰‡')
 
 j_target = imadjust(j_target, [], [], 0.75);
 j_template = imadjust(j_template, [], [], 0.75);
@@ -34,12 +34,12 @@ j_template = imadjust(j_template, [], [], 0.75);
 % figure
 % subplot(121)
 % imshow(j_target);
-% title('Ù¤Âí±ä»»ºóµÄÊµ²ÉÍ¼Æ¬')
+% title('ä¼½é©¬å˜æ¢åçš„å®é‡‡å›¾ç‰‡')
 % subplot(122)
 % imshow(j_template);
-% title('Ù¤Âí±ä»»ºóµÄÑùÆ¬')
+% title('ä¼½é©¬å˜æ¢åçš„æ ·ç‰‡')
 
-[m,n]=size(j_target);             %¶Á³ß´ç
+[m,n]=size(j_target);             %è¯»å°ºå¯¸
 [m0,n0]=size(j_template);
 
 result=zeros(m-m0+1,n-n0+1);
@@ -55,7 +55,7 @@ for i=1:1:m-m0+1
 end
 
 %%
-T = 0.978;   %ÉèÖÃÏà¹ØµÄãĞÖµ
+T = 0.978;   %è®¾ç½®ç›¸å…³çš„é˜ˆå€¼
 [iMaxPos,jMaxPos]=find( result>=T); 
 N = length(iMaxPos);
 
@@ -66,8 +66,8 @@ lineSize = 1;
 color = [0,0,0];
 for i = 1:N    
 %     rectangle('position',[jMaxPos(i),iMaxPos(i),n0,n0],'edgecolor','w');      
-%     plot(jMaxPos(i),iMaxPos(i),'*');              %»æÖÆÏà¹Øµã  
-%     plot([jMaxPos(i),jMaxPos(i)+n0-1],[iMaxPos(i),iMaxPos(i)]);     %ÓÃ¾ØĞÎ¿ò±ê¼Ç³öÆ¥ÅäÇøÓò
+%     plot(jMaxPos(i),iMaxPos(i),'*');              %ç»˜åˆ¶ç›¸å…³ç‚¹  
+%     plot([jMaxPos(i),jMaxPos(i)+n0-1],[iMaxPos(i),iMaxPos(i)]);     %ç”¨çŸ©å½¢æ¡†æ ‡è®°å‡ºåŒ¹é…åŒºåŸŸ
 %     plot([jMaxPos(i)+n0-1,jMaxPos(i)+n0-1],[iMaxPos(i),iMaxPos(i)+m0-1]);
 %     plot([jMaxPos(i),jMaxPos(i)+n0-1],[iMaxPos(i)+m0-1,iMaxPos(i)+m0-1]);
 %     plot([jMaxPos(i),jMaxPos(i)],[iMaxPos(i),iMaxPos(i)+m0-1]);
@@ -86,14 +86,14 @@ Ibw1 = rgb2hsv(Ibw);
 Ibw2 = mat2gray(Ibw1(:,:,3));
 [L,num] = bwlabel(Ibw2,8);
 num = num - 1;
-disp(['¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª']);
-disp(['Ğ¾Æ¬Ê¶±ğ³É¹¦£¡']);
-disp(['Ê¶±ğ³É¹¦µÄĞ¾Æ¬ÊıÁ¿Îª' ,num2str(num)]);
-disp(['¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª']);
+disp(['â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”']);
+disp(['èŠ¯ç‰‡è¯†åˆ«æˆåŠŸï¼']);
+disp(['è¯†åˆ«æˆåŠŸçš„èŠ¯ç‰‡æ•°é‡ä¸º' ,num2str(num)]);
+disp(['â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”']);
 
 %%
 Ilabel = bwlabel(Ibw2,8);
-stat = regionprops(Ilabel,'centroid');  %ĞÎĞÄ×ø±ê
+stat = regionprops(Ilabel,'centroid');  %å½¢å¿ƒåæ ‡
 stat(1) = [];
 
 m = length(stat);
@@ -104,14 +104,14 @@ y2 = zeros(m,1);
 
 figure
 imshow(I_target); 
-title('Ê¶±ğ³É¹¦µÄĞ¾Æ¬')
+title('è¯†åˆ«æˆåŠŸçš„èŠ¯ç‰‡')
 hold on;
 
 for x = 1: numel(stat)
     plot(stat(x).Centroid(1),stat(x).Centroid(2),'g+');
 end
 
-%¼ÆËã×ø±ê
+%è®¡ç®—åæ ‡
 for i = 1: numel(stat)
     x1(i) = round(stat(i).Centroid(1) - n0/2);
     x2(i) = round(stat(i).Centroid(1) + n0/2);
@@ -119,7 +119,7 @@ for i = 1: numel(stat)
     y2(i) = round(stat(i).Centroid(2) + m0/2);
 end
 
-%¿ò³öĞ¾Æ¬ÇøÓò
+%æ¡†å‡ºèŠ¯ç‰‡åŒºåŸŸ
 for i = 1: numel(stat)
     rectangle('position',[x1(i),y1(i),n0,m0],'edgecolor','r','LineWidth',1);  
 end
@@ -150,10 +150,4 @@ for i = 1: numel(stat)
 end
 xuhao = 1:num;
 xuhao = string(xuhao');
-xlswrite('C:\Users\FENGYIQING\Desktop\Í¼ÏñÊ¶±ğÈı¼¶ÏîÄ¿\µÚ¶şÌâµÚËÄĞ¡ÎÊ×ø±ê.xlsx',xuhao,'Sheet1','A2');
-xlswrite('C:\Users\FENGYIQING\Desktop\Í¼ÏñÊ¶±ğÈı¼¶ÏîÄ¿\µÚ¶şÌâµÚËÄĞ¡ÎÊ×ø±ê.xlsx',zuoshang,'Sheet1','B2');
-xlswrite('C:\Users\FENGYIQING\Desktop\Í¼ÏñÊ¶±ğÈı¼¶ÏîÄ¿\µÚ¶şÌâµÚËÄĞ¡ÎÊ×ø±ê.xlsx',youshang,'Sheet1','C2');
-xlswrite('C:\Users\FENGYIQING\Desktop\Í¼ÏñÊ¶±ğÈı¼¶ÏîÄ¿\µÚ¶şÌâµÚËÄĞ¡ÎÊ×ø±ê.xlsx',zuoxia,'Sheet1','D2');
-xlswrite('C:\Users\FENGYIQING\Desktop\Í¼ÏñÊ¶±ğÈı¼¶ÏîÄ¿\µÚ¶şÌâµÚËÄĞ¡ÎÊ×ø±ê.xlsx',youxia,'Sheet1','E2');
-xlswrite('C:\Users\FENGYIQING\Desktop\Í¼ÏñÊ¶±ğÈı¼¶ÏîÄ¿\µÚ¶şÌâµÚËÄĞ¡ÎÊ×ø±ê.xlsx',zhongdian,'Sheet1','F2');
 
